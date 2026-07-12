@@ -1,45 +1,193 @@
-# Tour Management System
+# 🌍 Tour Management System
 
-A full-stack Tour Management System developed using Java, JSP, Servlets, JDBC, PostgreSQL, HTML, CSS, and JavaScript.
+A full-stack **Tour Management System** built using **Java, JSP, Servlets, JDBC, and PostgreSQL**. The application allows users to explore tour packages, register and log in securely, book tours, manage bookings, and enjoy a modern responsive user interface.
 
-## Features
+---
 
-- User Registration & Login
-- Forgot Password
-- Browse Tours
-- Search Tours
-- Tour Booking
-- My Bookings
-- Cancel Booking
-- Responsive UI
-- PostgreSQL Database
+## 📌 Overview
 
-## Technologies Used
+The Tour Management System is designed to simplify the process of discovering and booking travel packages. It follows the **MVC (Model-View-Controller)** architecture and demonstrates the implementation of Java Web Technologies with database integration.
 
-- Java
-- JSP & Servlets
-- JDBC
+---
+
+## ✨ Features
+
+- 🔐 User Registration & Login
+- 🔑 Forgot Password & Password Reset
+- 🏞 Browse Available Tours
+- 🔍 Search Tours
+- 📅 Book Tour Packages
+- 📋 View My Bookings
+- ❌ Cancel Bookings
+- 💻 Responsive Glassmorphism UI
+- 🗄 PostgreSQL Database Integration
+- 🔒 Session-Based Authentication
+
+---
+
+## 🛠 Technologies Used
+
+| Category | Technologies |
+|----------|--------------|
+| Language | Java |
+| Backend | JSP, Servlets, JDBC |
+| Frontend | HTML5, CSS3, JavaScript |
+| Database | PostgreSQL |
+| Build Tool | Maven |
+| Server | Apache Tomcat |
+| IDE | Eclipse IDE |
+
+---
+
+## 🏗 Project Architecture
+
+The application follows the **MVC Architecture**.
+
+```
+Presentation Layer
+│
+├── JSP
+├── HTML
+├── CSS
+└── JavaScript
+        │
+        ▼
+Controller Layer
+│
+└── Java Servlets
+        │
+        ▼
+Business Logic
+│
+└── DAO Classes
+        │
+        ▼
+Database
+│
+└── PostgreSQL
+```
+
+---
+
+## 📂 Project Structure
+
+```
+Tour-Management-System
+│
+├── src
+│   ├── main
+│   │   ├── java
+│   │   └── webapp
+│
+├── Screenshot
+│
+├── pom.xml
+│
+└── README.md
+```
+
+---
+
+## 📸 Application Screenshots
+
+### 🏠 Home Page
+
+![Home](Screenshot/home.png)
+
+---
+
+### 🔐 Login
+
+![Login](Screenshot/login.png)
+
+---
+
+### 📝 Registration
+
+![Registration](Screenshot/registration.png)
+
+---
+
+### 🌍 View Tours
+
+![View Tours](Screenshot/ViewTour.png)
+
+---
+
+### 📅 Booking
+
+![Booking](Screenshot/Booking.png)
+
+---
+
+### ✅ Booking Confirmation
+
+![Confirmation](Screenshot/Confirmation.png)
+
+---
+
+### 📋 My Bookings
+
+![My Bookings](Screenshot/DisplayBooking.png)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Java JDK 17+
+- Apache Tomcat 10+
 - PostgreSQL
-- HTML5
-- CSS3
-- JavaScript
 - Maven
-- Apache Tomcat
+- Eclipse IDE
 
-## Project Structure
+### Installation
 
-- MVC Architecture
-- DAO Pattern
-- Session Management
-- Database Connectivity
+1. Clone the repository
 
-## Future Improvements
+```bash
+git clone https://github.com/pratheekr7777-dotcom/Tour-Management-System.git
+```
 
-- Payment Gateway
-- Email Notifications
-- Admin Dashboard
-- Online Deployment
+2. Import the project into Eclipse as a Maven project.
 
-## Author
+3. Configure PostgreSQL database credentials.
 
-Pratheek R
+4. Run the SQL script to create the required tables.
+
+5. Deploy the project on Apache Tomcat.
+
+6. Open:
+
+```
+http://localhost:8080/tour_management_system
+```
+
+---
+
+## 📈 Future Enhancements
+
+- 💳 Online Payment Gateway
+- 📧 Email Notifications
+- 👨‍💼 Admin Dashboard
+- ⭐ Tour Reviews & Ratings
+- 📍 Google Maps Integration
+- 📱 Mobile Responsive Enhancements
+- ☁ Cloud Deployment
+
+---
+
+## 👨‍💻 Author
+
+**Pratheek R**
+
+Java Full Stack Developer
+
+GitHub: https://github.com/pratheekr7777-dotcom
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, consider giving it a ⭐ on GitHub.
