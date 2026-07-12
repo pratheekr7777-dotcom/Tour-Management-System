@@ -1,0 +1,147 @@
+http://localhost:8080/tour_management_system/home ----------> url
+
+CREATE TABLE users (
+    user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(15) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    gender VARCHAR(10),
+    dob DATE,
+    address VARCHAR(255),
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'Active'
+);
+		
+		
+										
+CREATE TABLE tours (
+
+    id SERIAL PRIMARY KEY,
+
+    title VARCHAR(150) NOT NULL,
+
+    location VARCHAR(100) NOT NULL,
+
+    price DOUBLE PRECISION NOT NULL,
+
+    discount_price DOUBLE PRECISION NOT NULL,
+
+    duration VARCHAR(50),
+
+    rating DOUBLE PRECISION,
+
+    reviews INT,
+
+    category VARCHAR(50),
+
+    tour_type VARCHAR(50),
+
+    difficulty VARCHAR(50),
+
+    description TEXT,
+
+    image VARCHAR(255),
+
+    available_seats INT,
+
+    best_season VARCHAR(100),
+
+    featured BOOLEAN DEFAULT FALSE,
+
+    trending BOOLEAN DEFAULT FALSE,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);
+
+
+
+
+
+
+CREATE TABLE bookings (
+
+    booking_id SERIAL PRIMARY KEY,
+
+    user_id INT NOT NULL,
+    tour_id INT NOT NULL,
+
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(15) NOT NULL,
+
+    travel_date DATE NOT NULL,
+
+    adults INT NOT NULL CHECK (adults > 0),
+    children INT DEFAULT 0 CHECK (children >= 0),
+
+    total_people INT NOT NULL,
+
+    total_price DOUBLE PRECISION NOT NULL,
+
+    special_request TEXT,
+
+    booking_status VARCHAR(20) DEFAULT 'Pending',
+
+    booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_booking_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_booking_tour
+        FOREIGN KEY (tour_id)
+        REFERENCES tours(id)
+        ON DELETE CASCADE
+);
+
+
+
+
+
+
+INSERT INTO tours
+(title, location, price, discount_price, duration, rating, reviews, category, tour_type, difficulty, description, image, available_seats, best_season, featured, trending)
+VALUES
+
+('Mullayanagiri Peak Trek','Chikkamagaluru, Karnataka',3199,2699,'2 Days / 1 Nights',4.6,97,'Trekking','Adventure','Moderate','Explore Mullayanagiri Peak Trek with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour1.jpg',11,'October - March',TRUE,FALSE),
+
+('Kudremukh Trek Expedition','Chikkamagaluru, Karnataka',3899,3399,'3 Days / 2 Nights',4.7,114,'Trekking','Adventure','Difficult','Explore Kudremukh Trek Expedition with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour2.jpg',12,'October - March',TRUE,FALSE),
+
+('Tadiandamol Peak Trek','Coorg, Karnataka',4599,4099,'4 Days / 3 Nights',4.8,131,'Trekking','Adventure','Easy','Explore Tadiandamol Peak Trek with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour3.jpg',13,'October - March',FALSE,FALSE),
+
+('Kodachadri Sunset Trek','Shimoga, Karnataka',5299,4799,'1 Days / 0 Nights',4.9,148,'Trekking','Adventure','Moderate','Explore Kodachadri Sunset Trek with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour4.jpg',14,'October - March',FALSE,TRUE),
+
+('Coorg Coffee Estate Retreat','Coorg, Karnataka',5999,5499,'2 Days / 1 Nights',4.5,165,'Nature','Family','Easy','Explore Coorg Coffee Estate Retreat with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour5.jpg',15,'October - March',FALSE,FALSE),
+
+('Chikkamagaluru Hill Escape','Chikkamagaluru, Karnataka',6699,6199,'3 Days / 2 Nights',4.6,182,'Hill Station','Family','Easy','Explore Chikkamagaluru Hill Escape with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour6.jpg',16,'October - March',FALSE,FALSE),
+
+('Hampi Heritage Circuit','Hampi, Karnataka',7399,6899,'4 Days / 3 Nights',4.7,199,'Historical','Heritage','Moderate','Explore Hampi Heritage Circuit with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour7.jpg',17,'October - March',TRUE,FALSE),
+
+('Badami Cave Temples Tour','Badami, Karnataka',8099,7599,'1 Days / 0 Nights',4.8,216,'Architecture','Heritage','Easy','Explore Badami Cave Temples Tour with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour8.jpg',18,'October - March',FALSE,TRUE),
+
+('Pattadakal Heritage Trail','Bagalkot, Karnataka',8799,8299,'2 Days / 1 Nights',4.9,233,'Historical','Heritage','Moderate','Explore Pattadakal Heritage Trail with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour9.jpg',19,'October - March',FALSE,FALSE),
+
+('Gokarna Beach & Trek','Gokarna, Karnataka',2499,1999,'3 Days / 2 Nights',4.5,250,'Beach','Adventure','Moderate','Explore Gokarna Beach & Trek with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour10.jpg',20,'October - March',FALSE,FALSE),
+
+('Nagarhole Wildlife Safari','Karnataka',3199,2699,'4 Days / 3 Nights',4.6,267,'Wildlife','Nature','Difficult','Explore Nagarhole Wildlife Safari with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour11.jpg',21,'October - March',FALSE,FALSE),
+
+('Bandipur Jungle Experience','Karnataka',3899,3399,'1 Days / 0 Nights',4.7,284,'Wildlife','Nature','Easy','Explore Bandipur Jungle Experience with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour12.jpg',22,'October - March',FALSE,TRUE),
+
+('Munnar Tea Valley Tour','Munnar, Kerala',4599,4099,'2 Days / 1 Nights',4.8,301,'Hill Station','Nature','Moderate','Explore Munnar Tea Valley Tour with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour13.jpg',23,'October - March',TRUE,FALSE),
+
+('Wayanad Forest Adventure','Wayanad, Kerala',5299,4799,'3 Days / 2 Nights',4.9,318,'Wildlife','Adventure','Difficult','Explore Wayanad Forest Adventure with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour14.jpg',24,'October - March',FALSE,FALSE),
+
+('Alleppey Backwater Cruise','Alleppey, Kerala',5999,5499,'4 Days / 3 Nights',4.5,335,'Nature','Luxury','Easy','Explore Alleppey Backwater Cruise with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour15.jpg',25,'October - March',FALSE,FALSE),
+
+('Athirapally Waterfalls Tour','Thrissur, Kerala',6699,6199,'1 Days / 0 Nights',4.6,352,'Nature','Family','Moderate','Explore Athirapally Waterfalls Tour with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour16.jpg',26,'October - March',FALSE,TRUE),
+
+('Varkala Cliff Beach Retreat','Varkala, Kerala',7399,6899,'2 Days / 1 Nights',4.7,369,'Beach','Relaxation','Easy','Explore Varkala Cliff Beach Retreat with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour17.jpg',27,'October - March',FALSE,FALSE),
+
+('Kovalam Beach Vacation','Kovalam, Kerala',8099,7599,'3 Days / 2 Nights',4.8,386,'Beach','Relaxation','Moderate','Explore Kovalam Beach Vacation with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour18.jpg',28,'October - March',FALSE,FALSE),
+
+('Periyar Tiger Reserve Tour','Thekkady, Kerala',8799,8299,'4 Days / 3 Nights',4.9,403,'Wildlife','Adventure','Moderate','Explore Periyar Tiger Reserve Tour with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour19.jpg',29,'October - March',TRUE,FALSE),
+
+('Vagamon Hills Escape','Vagamon, Kerala',2499,1999,'1 Days / 0 Nights',4.5,420,'Hill Station','Nature','Easy','Explore Vagamon Hills Escape with guided experiences, local attractions, comfortable stays and memorable sightseeing.','images/tour20.jpg',10,'October - March',FALSE,TRUE);
