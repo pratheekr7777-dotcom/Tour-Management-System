@@ -9,12 +9,16 @@ public class GetConnection {
     public static Connection getConnectionObject(){
 
         try {
+        	String host = System.getenv("PGHOST");
+        	String database = System.getenv("PGDATABASE");
+        	String user = System.getenv("PGUSER");
+        	String password = System.getenv("PGPASSWORD");
             Class.forName("org.postgresql.Driver");
-
+            String url="jdbc:postgresql://" + host + "/" + database + "?sslmode=require";
             return DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/tour-db",
-                    "postgres",
-                    "test");
+            		url,
+                    user,
+                    password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
