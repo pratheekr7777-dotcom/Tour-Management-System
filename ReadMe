@@ -1,193 +1,270 @@
 # 🌍 Tour Management System
 
-A full-stack **Tour Management System** built using **Java, JSP, Servlets, JDBC, and PostgreSQL**. The application allows users to explore tour packages, register and log in securely, book tours, manage bookings, and enjoy a modern responsive user interface.
+A full-stack **Tour Management System** built using **Java, JSP, Servlets, JDBC, PostgreSQL, HTML, CSS, JavaScript, Docker, and Apache Tomcat**.
+
+The application provides an online platform where users can explore tours, register, book trips, manage bookings, and securely authenticate. It follows the MVC architecture and demonstrates full-stack Java web development with database integration and cloud deployment.
 
 ---
 
-## 📌 Overview
+# 🚀 Live Demo
 
-The Tour Management System is designed to simplify the process of discovering and booking travel packages. It follows the **MVC (Model-View-Controller)** architecture and demonstrates the implementation of Java Web Technologies with database integration.
-
----
-
-## ✨ Features
-
-- 🔐 User Registration & Login
-- 🔑 Forgot Password & Password Reset
-- 🏞 Browse Available Tours
-- 🔍 Search Tours
-- 📅 Book Tour Packages
-- 📋 View My Bookings
-- ❌ Cancel Bookings
-- 💻 Responsive Glassmorphism UI
-- 🗄 PostgreSQL Database Integration
-- 🔒 Session-Based Authentication
+**Application:**  
+https://tour-management-system-kh6e.onrender.com/home
 
 ---
 
-## 🛠 Technologies Used
+# 📸 Features
 
-| Category | Technologies |
-|----------|--------------|
-| Language | Java |
-| Backend | JSP, Servlets, JDBC |
-| Frontend | HTML5, CSS3, JavaScript |
-| Database | PostgreSQL |
-| Build Tool | Maven |
-| Server | Apache Tomcat |
-| IDE | Eclipse IDE |
+## 👤 User Authentication
+
+- User Registration
+- Secure Login
+- Logout
+- Forgot Password
+- Session-based Authentication
+- Password Validation
+
+## 🏠 Home Page
+
+- Responsive Navigation Bar
+- Dynamic Hero Section
+- Popular Tours
+- Featured Tours
+- Trending Tours
+- Search Tours
+- Responsive Glassmorphism UI
+- Smooth Animations
+
+## 🗺 Tour Management
+
+- View All Tours
+- View Detailed Tour Information
+- Search Tours
+- Browse by Category
+- Browse by Destination
+- Price Information
+- Tour Duration
+- Ratings
+- Available Seats
+
+## 🎫 Booking System
+
+- Book Tours
+- Booking Confirmation
+- Booking Success Page
+- View My Bookings
+- Cancel Booking
+- Seat Availability Validation
+- Login Required Before Booking
+
+## 👤 User Profile
+
+- View Profile
+- Edit Profile
+- Change Password
+- Manage Personal Information
+
+## 💾 Database
+
+- PostgreSQL Integration
+- JDBC Connectivity
+- CRUD Operations
+- Prepared Statements
+- Transaction Management
+
+## 🎨 User Interface
+
+- Responsive Design
+- Mobile Friendly
+- Glassmorphism Design
+- Modern Animations
+- Clean Layout
+- Professional Color Theme
 
 ---
 
-## 🏗 Project Architecture
+# 🛠 Technologies Used
 
-The application follows the **MVC Architecture**.
+### Backend
+- Java
+- JSP
+- Servlets
+- JDBC
 
-```
-Presentation Layer
-│
-├── JSP
-├── HTML
-├── CSS
-└── JavaScript
-        │
-        ▼
-Controller Layer
-│
-└── Java Servlets
-        │
-        ▼
-Business Logic
-│
-└── DAO Classes
-        │
-        ▼
-Database
-│
-└── PostgreSQL
-```
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Database
+- PostgreSQL
+
+### Server
+- Apache Tomcat 10
+
+### Build Tool
+- Maven
+
+### Deployment
+- Docker
+- Render
+
+### Version Control
+- Git
+- GitHub
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
-```
+```text
 Tour-Management-System
 │
-├── src
-│   ├── main
-│   │   ├── java
-│   │   └── webapp
+├── src/main/java
+│   ├── connection
+│   ├── dao
+│   ├── entity
+│   ├── servlet
+│   └── util
 │
-├── Screenshot
+├── src/main/webapp
+│   ├── css
+│   ├── images
+│   ├── js
+│   ├── home.jsp
+│   ├── login.jsp
+│   ├── register.jsp
+│   ├── booking.jsp
+│   ├── booking-success.jsp
+│   └── my-bookings.jsp
 │
+├── Dockerfile
 ├── pom.xml
-│
 └── README.md
 ```
 
 ---
 
-## 📸 Application Screenshots
+# ⚙ Database Schema
 
-### 🏠 Home Page
+Main Tables
 
-![Home](Screenshot/home.png)
+- users
+- tours
+- bookings
 
----
+Relationships
 
-### 🔐 Login
-
-![Login](Screenshot/login.png)
-
----
-
-### 📝 Registration
-
-![Registration](Screenshot/registration.png)
+- One User → Many Bookings
+- One Tour → Many Bookings
 
 ---
 
-### 🌍 View Tours
+# 🔄 Application Flow
 
-![View Tours](Screenshot/ViewTour.png)
+```text
+Home Page
+      │
+      ▼
+Register / Login
+      │
+      ▼
+Browse Tours
+      │
+      ▼
+View Tour Details
+      │
+      ▼
+Book Tour
+      │
+      ▼
+Confirm Booking
+      │
+      ▼
+Booking Success
+      │
+      ▼
+My Bookings
+      │
+      ▼
+Cancel Booking (Optional)
+```
 
 ---
 
-### 📅 Booking
+# 🚀 Local Setup
 
-![Booking](Screenshot/Booking.png)
-
----
-
-### ✅ Booking Confirmation
-
-![Confirmation](Screenshot/Confirmation.png)
-
----
-
-### 📋 My Bookings
-
-![My Bookings](Screenshot/DisplayBooking.png)
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Java JDK 17+
-- Apache Tomcat 10+
-- PostgreSQL
-- Maven
-- Eclipse IDE
-
-### Installation
-
-1. Clone the repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/pratheekr7777-dotcom/Tour-Management-System.git
 ```
 
-2. Import the project into Eclipse as a Maven project.
+## 2. Open in Eclipse
 
-3. Configure PostgreSQL database credentials.
+Import the project as an Existing Maven Project.
 
-4. Run the SQL script to create the required tables.
+## 3. Configure PostgreSQL
 
-5. Deploy the project on Apache Tomcat.
+Update your PostgreSQL connection details.
 
-6. Open:
+## 4. Build the Project
 
+```bash
+mvn clean install
 ```
-http://localhost:8080/tour_management_system
+
+## 5. Run on Apache Tomcat
+
+Deploy the generated WAR file and open:
+
+```text
+http://localhost:8080/tour-management-system/home
 ```
 
 ---
 
-## 📈 Future Enhancements
+# 🐳 Docker Deployment
 
-- 💳 Online Payment Gateway
-- 📧 Email Notifications
-- 👨‍💼 Admin Dashboard
-- ⭐ Tour Reviews & Ratings
-- 📍 Google Maps Integration
-- 📱 Mobile Responsive Enhancements
-- ☁ Cloud Deployment
+```bash
+docker build -t tour-management-system .
+docker run -p 8080:8080 tour-management-system
+```
 
 ---
 
-## 👨‍💻 Author
+# ☁ Cloud Deployment
+
+- Docker
+- Render
+- PostgreSQL (Neon)
+
+---
+
+# 🎯 Future Enhancements
+
+- Admin Dashboard
+- Payment Gateway
+- Email Notifications
+- Reviews & Ratings
+- Wishlist
+- Google Maps
+- Spring Boot Migration
+
+---
+
+# 👨‍💻 Developer
 
 **Pratheek R**
 
 Java Full Stack Developer
 
-GitHub: https://github.com/pratheekr7777-dotcom
+**Skills:** Java, JSP, Servlets, JDBC, PostgreSQL, HTML, CSS, JavaScript, Docker, Maven, Git & GitHub
 
 ---
 
-## ⭐ Support
+# 📄 License
 
-If you found this project helpful, consider giving it a ⭐ on GitHub.
+This project is developed for learning, portfolio, and educational purposes.
+
+

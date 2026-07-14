@@ -145,4 +145,27 @@ public class UserDao {
 
         return user;
     }
+    public boolean isEmailExists(String email) {
+
+        boolean exists = false;
+
+        try {
+
+            String sql = "SELECT 1 FROM users WHERE email = ?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                exists = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
 }
