@@ -147,25 +147,20 @@ public class UserDao {
     }
     public boolean isEmailExists(String email) {
 
-        boolean exists = false;
+        String sql = "SELECT 1 FROM users WHERE email = ?";
 
-        try {
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
 
-            String sql = "SELECT 1 FROM users WHERE email = ?";
-
-            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, email);
 
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                exists = true;
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return exists;
+        return false;
     }
 }

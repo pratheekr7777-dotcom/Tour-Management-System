@@ -47,6 +47,12 @@ public class RegisterData extends HttpServlet {
             showError(req, resp, "Enter a valid Email Address");
             return;
         }
+        UserDao dao = new UserDao();
+
+        if (dao.isEmailExists(email)) {
+            showError(req, resp, "Email is already registered.");
+            return;
+        }
 
         if (phone == null || !phone.matches("\\d{10}")) {
             showError(req, resp, "Phone number must contain exactly 10 digits");
@@ -77,7 +83,17 @@ public class RegisterData extends HttpServlet {
             showError(req, resp, "Please select your Date of Birth");
             return;
         }
+        Date birthDate = Date.valueOf(dob);
 
+        java.time.LocalDate today = java.time.LocalDate.now();
+        java.time.LocalDate birth = birthDate.toLocalDate();
+
+        int age = java.time.Period.between(birth, today).getYears();
+
+        if (age < 18) {
+            showError(req, resp, "You must be at least 18 years old to register.");
+            return;
+        }
         if (address == null || address.isBlank()) {
             showError(req, resp, "Address cannot be empty");
             return;
@@ -93,11 +109,9 @@ public class RegisterData extends HttpServlet {
         user.setPhone(phone);
         user.setPassword(password);
         user.setGender(gender);
-        user.setDob(Date.valueOf(dob));
+        user.setDob(birthDate);
         user.setAddress(address);
         
-        UserDao dao = new UserDao();
-
         boolean status = dao.registerUser(user);
 
         if (status) {
