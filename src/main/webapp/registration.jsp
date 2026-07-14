@@ -36,35 +36,38 @@ body {
 	background-attachment: fixed;
 	animation: zoom 15s infinite alternate;
 }
-@
-keyframes zoom {from { background-size:100%;
-	
+@keyframes zoom {
+    from {
+        background-size: 100%;
+    }
+
+    to {
+        background-size: 115%;
+    }
 }
+
 @keyframes fadeUp {
-	from {
-		opacity: 0;
-		transform: translateY(35px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeDown {
-	from {
-		opacity: 0;
-		transform: translateY(-25px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-to {
-	background-size: 115%;
-}
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 .container {
 	width: min(560px, 100%);
