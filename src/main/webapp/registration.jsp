@@ -27,41 +27,62 @@ body {
 	justify-content: center;
 	align-items: center;
 	padding: 40px 20px;
-	background: linear-gradient(rgba(15, 32, 39, .65), rgba(15, 32, 39, .65)),
+	overflow-x: hidden;
+	background: linear-gradient(rgba(15, 32, 39, .65),
+			rgba(15, 32, 39, .65)),
 		url("images/tour1.jpg");
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
 	animation: zoom 15s infinite alternate;
 }
-
 @
 keyframes zoom {from { background-size:100%;
 	
 }
+@keyframes fadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(35px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
 
+@keyframes fadeDown {
+	from {
+		opacity: 0;
+		transform: translateY(-25px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
 to {
 	background-size: 115%;
 }
 
 }
 .container {
-	width: 100%;
-	max-width: 560px;
+	width: min(560px, 100%);
 	padding: 40px;
 	border-radius: 25px;
 	background: rgba(255, 255, 255, .12);
 	backdrop-filter: blur(20px);
 	border: 1px solid rgba(255, 255, 255, .25);
 	box-shadow: 0 20px 45px rgba(0, 0, 0, .35);
+	animation: fadeUp .9s ease;
 }
-
 .logo {
 	font-size: 36px;
 	text-align: center;
 	font-weight: 700;
-	color: #fff;
+	color: white;
 	margin-bottom: 8px;
+	animation: fadeDown .8s ease;
 }
 
 .logo span {
@@ -71,14 +92,48 @@ to {
 .subtitle {
 	text-align: center;
 	color: #ddd;
-	font-family:cursive;
+	font-family: cursive;
 	margin-bottom: 30px;
+	animation: fadeDown 1s ease;
 }
 
 .form-group {
 	margin-bottom: 18px;
+	opacity: 0;
+	animation: fadeUp .7s ease forwards;
 }
 
+.form-group:nth-child(1) {
+	animation-delay: .2s;
+}
+
+.form-group:nth-child(2) {
+	animation-delay: .3s;
+}
+
+.form-group:nth-child(3) {
+	animation-delay: .4s;
+}
+
+.form-group:nth-child(4) {
+	animation-delay: .5s;
+}
+
+.form-group:nth-child(5) {
+	animation-delay: .6s;
+}
+
+.form-group:nth-child(6) {
+	animation-delay: .7s;
+}
+
+.form-group:nth-child(7) {
+	animation-delay: .8s;
+}
+
+.form-group:nth-child(8) {
+	animation-delay: .9s;
+}
 .form-group label {
 	display: block;
 	margin-bottom: 8px;
@@ -167,6 +222,9 @@ button {
 	cursor: pointer;
 	transition: .3s;
 	margin-top: 10px;
+	opacity: 0;
+	animation: fadeUp .8s ease forwards;
+	animation-delay: 1s;
 }
 
 button:hover {
@@ -197,13 +255,128 @@ button:hover {
 	text-decoration: underline;
 }
 
-@media ( max-width :600px) {
+/* ================= TABLET ================= */
+
+@media (max-width:768px) {
+
+	body {
+		padding: 25px 15px;
+		background-attachment: scroll;
+	}
+
 	.container {
-		padding: 25px;
+		width: 100%;
+		max-width: 95%;
+		padding: 30px;
+		border-radius: 20px;
 	}
+
 	.logo {
-		font-size: 28px;
+		font-size: 30px;
 	}
+
+	.subtitle {
+		font-size: 14px;
+	}
+
+	input:not([type="radio"]),
+	textarea,
+	select {
+		padding: 13px 15px;
+		font-size: 14px;
+	}
+
+	button {
+		font-size: 16px;
+		padding: 14px;
+	}
+
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width:600px) {
+
+	body {
+		padding: 20px 12px;
+		align-items: flex-start;
+	}
+
+	.container {
+		padding: 24px 20px;
+		margin: 20px 0;
+		border-radius: 18px;
+	}
+
+	.logo {
+		font-size: 26px;
+	}
+
+	.subtitle {
+		font-size: 13px;
+		margin-bottom: 25px;
+	}
+
+	.gender {
+		flex-direction: column;
+		gap: 12px;
+		align-items: flex-start;
+	}
+
+	.form-group label {
+		font-size: 14px;
+	}
+
+	input:not([type="radio"]),
+	textarea,
+	select {
+		font-size: 14px;
+		padding: 12px 14px;
+	}
+
+	button {
+		font-size: 16px;
+		padding: 13px;
+	}
+
+	.login {
+		font-size: 14px;
+	}
+
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width:400px) {
+
+	.container {
+		padding: 18px 15px;
+	}
+
+	.logo {
+		font-size: 22px;
+	}
+
+	.subtitle {
+		font-size: 12px;
+	}
+
+	input:not([type="radio"]),
+	textarea,
+	select {
+		font-size: 13px;
+		padding: 11px 12px;
+	}
+
+	button {
+		font-size: 15px;
+		padding: 12px;
+	}
+
+	.login {
+		font-size: 13px;
+	}
+
 }
 </style>
 
