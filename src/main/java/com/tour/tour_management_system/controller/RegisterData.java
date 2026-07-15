@@ -1,8 +1,9 @@
 package com.tour.tour_management_system.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 import com.tour.tour_management_system.dao.UserDao;
 import com.tour.tour_management_system.entity.User;
@@ -18,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/register")
 public class RegisterData extends HttpServlet {
 
-    private static final long serialVersionUID = 7855021096656549781L;
+    private static final long serialVersionUID = 1L;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -28,93 +29,103 @@ public class RegisterData extends HttpServlet {
         String email = req.getParameter("uemail");
         String phone = req.getParameter("uphone");
         String password = req.getParameter("upswd");
-        String cnfpswd = req.getParameter("cnfpswd");
+        String confirmPassword = req.getParameter("cnfpswd");
         String gender = req.getParameter("ugender");
         String dob = req.getParameter("udob");
         String address = req.getParameter("uaddress");
 
-        if (name == null || name.isBlank()) {
-            showError(req, resp, "Name cannot be empty");
+        // Basic validation
+        if (isBlank(name))
+            returnError(req, resp, "Name cannot be empty");
+
+        else if (isBlank(email))
+            returnError(req, resp, "Email cannot be empty");
+
+        else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"))
+            returnError(req, resp, "Enter a valid Email Address");
+
+        else if (phone == null || !phone.matches("\\d{10}"))
+            returnError(req, resp, "Phone number must contain exactly 10 digits");
+
+        else if (isBlank(password))
+            returnError(req, resp, "Password cannot be empty");
+
+        else if (password.length() < 8)
+            returnError(req, resp, "Password must contain at least 8 characters");
+
+        else if (!password.equals(confirmPassword))
+            returnError(req, resp, "Passwords do not match");
+
+        else if (isBlank(gender))
+            returnError(req, resp, "Please select your gender");
+
+        else if (isBlank(dob))
+            returnError(req, resp, "Please select your Date of Birth");
+
+        else if (isBlank(address))
+            returnError(req, resp, "Address cannot be empty");
+
+        else {
+            registerUser(req, resp, name, email, phone,
+                    password, gender, dob, address);
+        }
+    }
+
+    private void registerUser(
+            HttpServletRequest req,
+            HttpServletResponse resp,
+            String name,
+            String email,
+            String phone,
+            String password,
+            String gender,
+            String dob,
+            String address)
+            throws ServletException, IOException {
+
+        LocalDate birthDate;
+
+        try {
+            birthDate = LocalDate.parse(dob);
+        } catch (Exception e) {
+            showError(req, resp, "Invalid Date of Birth");
             return;
         }
 
-        if (email == null || email.isBlank()) {
-            showError(req, resp, "Email cannot be empty");
+        LocalDate today = LocalDate.now();
+
+        if (birthDate.isAfter(today)) {
+            showError(req, resp, "Date of Birth cannot be a future date.");
             return;
         }
 
-        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            showError(req, resp, "Enter a valid Email Address");
+        if (Period.between(birthDate, today).getYears() < 18) {
+            showError(req, resp,
+                    "You must be at least 18 years old to register.");
             return;
         }
+
         UserDao dao = new UserDao();
 
         if (dao.isEmailExists(email)) {
             showError(req, resp, "Email is already registered.");
             return;
         }
-
-        if (phone == null || !phone.matches("\\d{10}")) {
-            showError(req, resp, "Phone number must contain exactly 10 digits");
+        if (dao.isPhoneExists(phone)) {
+            showError(req, resp, "Phone number is already registered.");
             return;
         }
-
-        if (password == null || password.isBlank()) {
-            showError(req, resp, "Password cannot be empty");
-            return;
-        }
-
-        if (password.length() < 8) {
-            showError(req, resp, "Password must contain at least 8 characters");
-            return;
-        }
-
-        if (!password.equals(cnfpswd)) {
-            showError(req, resp, "Passwords do not match");
-            return;
-        }
-
-        if (gender == null || gender.isBlank()) {
-            showError(req, resp, "Please select your gender");
-            return;
-        }
-
-        if (dob == null || dob.isBlank()) {
-            showError(req, resp, "Please select your Date of Birth");
-            return;
-        }
-        Date birthDate = Date.valueOf(dob);
-
-        java.time.LocalDate today = java.time.LocalDate.now();
-        java.time.LocalDate birth = birthDate.toLocalDate();
-
-        int age = java.time.Period.between(birth, today).getYears();
-
-        if (age < 18) {
-            showError(req, resp, "You must be at least 18 years old to register.");
-            return;
-        }
-        if (address == null || address.isBlank()) {
-            showError(req, resp, "Address cannot be empty");
-            return;
-        }
-
-        // ==========================
-        // Database insertion goes here
-        
         User user = new User();
 
-        user.setName(name);
-        user.setEmail(email);
+        user.setName(name.trim());
+        user.setEmail(email.trim().toLowerCase());
         user.setPhone(phone);
         user.setPassword(password);
         user.setGender(gender);
-        user.setDob(birthDate);
-        user.setAddress(address);
-        
-        boolean status = dao.registerUser(user);
+        user.setDob(Date.valueOf(birthDate));
+        user.setAddress(address.trim());
 
-        if (status) {
+        if (dao.registerUser(user)) {
 
             HttpSession session = req.getSession();
             session.setAttribute("successMessage", "Welcome " + name);
@@ -122,20 +133,37 @@ public class RegisterData extends HttpServlet {
             resp.sendRedirect("home");
 
         } else {
+            showError(req, resp,
+                    "Registration failed. Please try again.");
+        }
+    }
 
-            showError(req, resp, "Something went wrong!");
+    private boolean isBlank(String value) {
+        return value == null || value.isBlank();
+    }
 
-        }    }
-
-    private void showError(HttpServletRequest req,
-                           HttpServletResponse resp,
-                           String message)
+    private void returnError(
+            HttpServletRequest req,
+            HttpServletResponse resp,
+            String message)
             throws ServletException, IOException {
 
-    	req.setAttribute("error", message);
+        showError(req, resp, message);
+    }
 
-    	RequestDispatcher dispatcher =
-    	        req.getRequestDispatcher("registration.jsp");
+    private void showError(
+            HttpServletRequest req,
+            HttpServletResponse resp,
+            String message)
+            throws ServletException, IOException {
 
-    	dispatcher.forward(req, resp);    }
+        // Store only the error message
+        req.setAttribute("error", message);
+
+        // Forward the SAME request back to registration.jsp
+        RequestDispatcher dispatcher =
+                req.getRequestDispatcher("registration.jsp");
+
+        dispatcher.forward(req, resp);
+    }
 }

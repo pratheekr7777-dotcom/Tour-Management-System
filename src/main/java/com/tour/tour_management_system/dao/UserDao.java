@@ -163,4 +163,22 @@ public class UserDao {
 
         return false;
     }
+    public boolean isPhoneExists(String phone) {
+
+        String sql = "SELECT 1 FROM users WHERE phone = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, phone);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 }
