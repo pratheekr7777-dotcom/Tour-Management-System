@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create Account</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -453,78 +454,112 @@ button:hover {
 }
 
 /* ================= MOBILE ================= */
-@media ( max-width :600px) {
-	body {
-		padding: 20px 12px;
-		align-items: flex-start;
-	}
-	.container {
-		padding: 24px 20px;
-		margin: 20px 0;
-		border-radius: 18px;
-	}
-	.logo {
-		font-size: 26px;
-	}
-	.subtitle {
-		font-size: 13px;
-		margin-bottom: 25px;
-	}
-	.gender {
-		flex-direction: column;
-		gap: 12px;
-		align-items: flex-start;
-	}
-	.form-group label {
-		font-size: 14px;
-	}
-	input:not([type="radio"]), textarea, select {
-		font-size: 14px;
-		padding: 12px 14px;
-	}
-	button {
-		font-size: 16px;
-		padding: 13px;
-	}
-	.login {
-		font-size: 14px;
-	}
-	.toast {
-	top: 15px;
-	right: 15px;
-	left: 15px;
-	width: auto;
-}
+@media (max-width: 600px) {
+
+    body {
+        min-height: 100vh;
+        padding: 20px 12px;
+        align-items: flex-start;
+
+        /* Keep background centered and cover full screen */
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+
+        /* Disable desktop zoom animation */
+        animation: none;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 18px;
+        margin: 30px 30px;
+        border-radius: 18px;
+    }
+
+    .logo {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    input:not([type="radio"]),
+    textarea,
+    select {
+        width: 100%;
+        font-size: 16px; /* prevents mobile input zoom */
+        padding: 14px;
+    }
+
+    .gender {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    .login {
+        font-size: 14px;
+    }
+
+    .toast {
+        top: 15px;
+        right: 15px;
+        left: 15px;
+        width: auto;
+    }
 }
 
+
 /* ================= SMALL MOBILE ================= */
-@media ( max-width :400px) {
-	.container {
-		padding: 18px 15px;
-	}
-	.logo {
-		font-size: 22px;
-	}
-	.subtitle {
-		font-size: 12px;
-	}
-	input:not([type="radio"]), textarea, select {
-		font-size: 13px;
-		padding: 11px 12px;
-	}
-	button {
-		font-size: 15px;
-		padding: 12px;
-	}
-	.login {
-		font-size: 13px;
-	}
-	.toast {
-	top: 10px;
-	right: 10px;
-	left: 10px;
-	width: auto;
-}
+@media (max-width: 400px) {
+
+    body {
+        padding: 12px 8px;
+    }
+
+    .container {
+        padding: 22px 15px;
+        margin: 20px 20px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    /* Keep 16px to prevent zoom */
+    input:not([type="radio"]),
+    textarea,
+    select {
+        font-size: 16px;
+        padding: 13px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 13px;
+    }
+
+    .login {
+        font-size: 13px;
+    }
 }
 </style>
 

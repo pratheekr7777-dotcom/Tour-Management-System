@@ -133,8 +133,8 @@ body{
 }
 
 h1 {
-	font-size: 70px;
-	font-weight: 300;
+	font-size: 100px;
+	font-weight: 500;
 	text-align: center;
 	line-height: 1.1;
 }
@@ -156,17 +156,17 @@ h1 span {
 }
 
 .left h2 {
-	font-size: 25px;
+	font-size: 40px;
 }
 
 .left h3 {
-	font-size: 16px;
+	font-size: 28px;
 	margin-top: 5px;
 }
 
 .left p {
 	margin: 20px 0;
-	font-size: 14px;
+	font-size: 20px;
 	line-height: 1.6;
 }
 
@@ -228,12 +228,12 @@ h1 span {
 }
 
 .price {
-	font-size: 22px;
+	font-size: 28px;
 	margin-top: 10px;
 }
 
 .rating {
-	font-size: 16px;
+	font-size: 20px;
 }
 
 .destinations {
@@ -321,6 +321,203 @@ h1 span {
 
     pointer-events:none;
 
+}
+/* ==========================================
+   SMOOTH HERO ANIMATIONS
+========================================== */
+
+/* Initial page entrance */
+.navbar {
+    animation: navbarEnter 0.8s ease forwards;
+}
+
+@keyframes navbarEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Center content animation */
+.content {
+    animation: contentEnter 1s ease 0.2s both;
+}
+
+@keyframes contentEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Bottom section entrance */
+.bottom {
+    animation: bottomEnter 1s ease 0.4s both;
+}
+
+@keyframes bottomEnter {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==========================================
+   TOUR CHANGE ANIMATION
+========================================== */
+
+.content.animate-tour {
+    animation: tourTitleChange 0.7s ease;
+}
+
+@keyframes tourTitleChange {
+
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.left.animate-tour {
+    animation: tourInfoChange 0.7s ease;
+}
+
+@keyframes tourInfoChange {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* ==========================================
+   CAROUSEL ANIMATION
+========================================== */
+
+.card {
+    animation: cardEnter 0.6s ease both;
+}
+
+.card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.card:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.card:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+@keyframes cardEnter {
+
+    from {
+        opacity: 0;
+        transform: translateX(35px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+
+/* Better card hover */
+.card:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ==========================================
+   BUTTON ANIMATIONS
+========================================== */
+
+.book,
+.btn {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+.book:hover,
+.btn:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ==========================================
+   ARROW ANIMATIONS
+========================================== */
+
+.arrow {
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.arrow:hover {
+    transform: scale(1.12);
+}
+
+.arrow:active {
+    transform: scale(0.9);
+}
+
+
+/* ==========================================
+   CATEGORY
+========================================== */
+
+.small {
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.small:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.35);
 }
 </style>
 
@@ -548,232 +745,214 @@ if(message != null){
 
 		console.log(tours);
 
+		let current = 0;
 
 
-let current = 0;
+		/* ================================
+		   LOAD CURRENT TOUR
+		================================ */
 
+		function loadTour() {
 
+		    if (tours.length === 0) {
+		        return;
+		    }
 
+		    let tour = tours[current];
 
-function loadTour(){
+		    let hero = document.getElementById("hero");
+		    let content = document.querySelector(".content");
+		    let left = document.querySelector(".left");
 
 
-let tour = tours[current];
+		    /* Restart content animations */
 
+		    content.classList.remove("animate-tour");
+		    left.classList.remove("animate-tour");
 
+		    void content.offsetWidth;
 
-let hero = document.getElementById("hero");
 
+		    /* Change hero background */
 
+		    hero.style.backgroundImage = `
 
-hero.style.backgroundImage =
+		        linear-gradient(
+		            rgba(0,0,0,.45),
+		            rgba(0,0,0,.45)
+		        ),
 
-`
+		        url("${tour.image}")
 
-linear-gradient(
-rgba(0,0,0,.45),
-rgba(0,0,0,.45)
-),
+		    `;
 
-url('${tour.image}')
 
-`;
+		    /* Update tour details */
 
+		    document.getElementById("logo").textContent =
+		        tour.location.split(",")[0];
 
+		    document.getElementById("category").textContent =
+		        tour.category;
 
+		    document.getElementById("title").textContent =
+		        tour.title;
 
-document.getElementById("logo").innerHTML =
+		    document.getElementById("tourName").textContent =
+		        tour.title;
 
-tour.location.split(",")[0];
+		    document.getElementById("location").textContent =
+		        tour.location;
 
+		    document.getElementById("description").textContent =
+		        tour.description;
 
+		    document.getElementById("price").textContent =
+		        tour.price;
 
-document.getElementById("category").innerHTML =
+		    document.getElementById("rating").textContent =
+		        tour.rating;
 
-tour.category;
 
+		    /* Booking button */
 
+		    document.getElementById("heroBookBtn").href =
+		        "book-tour?id=" + tour.id;
 
-document.getElementById("title").innerHTML =
 
-tour.title;
+		    /* Start animations */
 
+		    content.classList.add("animate-tour");
 
+		    left.classList.add("animate-tour");
 
-document.getElementById("tourName").innerHTML =
 
-tour.title;
+		    /* Display carousel images */
 
+		    showCards();
+		}
 
 
-document.getElementById("location").innerHTML =
 
-tour.location;
+		/* ================================
+		   DISPLAY CAROUSEL CARDS
+		================================ */
 
+		function showCards() {
 
+		    let cards = document.getElementById("cards");
 
-document.getElementById("description").innerHTML =
+		    cards.innerHTML = "";
 
-tour.description;
 
+		    for (let i = 0; i < 4; i++) {
 
+		        let index = (current + i) % tours.length;
 
-document.getElementById("price").innerHTML =
+		        let card = document.createElement("div");
 
-tour.price;
+		        card.className = "card";
 
 
+		        /* When image is clicked */
 
-document.getElementById("rating").innerHTML =
+		        card.addEventListener("click", function() {
 
-tour.rating;
+		            selectImage(index);
 
-document.getElementById("heroBookBtn").href =
-    "book-tour?id=" + tour.id;
+		        });
 
-showCards();
 
+		        /* Create image */
 
-}
+		        let image = document.createElement("img");
 
+		        image.src = tours[index].image;
 
+		        image.alt = tours[index].title;
 
 
+		        /* Add image inside card */
 
+		        card.appendChild(image);
 
-function showCards(){
 
+		        /* Add card inside carousel */
 
+		        cards.appendChild(card);
 
-let cards = document.getElementById("cards");
+		    }
 
+		}
 
-cards.innerHTML="";
 
 
+		/* ================================
+		   NEXT TOUR
+		================================ */
 
-let start=current;
+		function next() {
 
+		    if (tours.length === 0) {
+		        return;
+		    }
 
+		    current = (current + 1) % tours.length;
 
-for(let i=0;i<4;i++){
+		    loadTour();
 
+		}
 
-let index=(start+i)%tours.length;
 
 
+		/* ================================
+		   PREVIOUS TOUR
+		================================ */
 
-cards.innerHTML +=
+		function prev() {
 
+		    if (tours.length === 0) {
+		        return;
+		    }
 
-`
+		    current =
+		        (current - 1 + tours.length) % tours.length;
 
-<div class="card" onclick="selectImage(${index})">
+		    loadTour();
 
+		}
 
-<img src="${tours[index].image}">
 
 
-</div>
+		/* ================================
+		   SELECT CAROUSEL IMAGE
+		================================ */
 
-`;
+		function selectImage(index) {
 
+		    current = index;
 
+		    loadTour();
 
-}
+		}
 
 
 
-}
+		/* ================================
+		   AUTO SLIDER
+		================================ */
 
+		let autoSlider = setInterval(function() {
 
+		    next();
 
+		}, 6000);
 
 
 
-function next(){
+		/* ================================
+		   INITIAL LOAD
+		================================ */
 
-
-current++;
-
-
-
-if(current>=tours.length){
-
-current=0;
-
-}
-
-
-
-loadTour();
-
-
-
-}
-
-
-
-
-
-
-function prev(){
-
-
-current--;
-
-
-
-if(current<0){
-
-current=tours.length-1;
-
-}
-
-
-
-loadTour();
-
-
-
-}
-
-
-
-
-
-
-
-function selectImage(index){
-
-
-current=index;
-
-
-loadTour();
-
-
-}
-
-
-
-
-// automatic slider (optional)
-
-setInterval(()=>{
-
-
-next();
-
-
-},6000);
-
-
-
-
-
-loadTour();
-
-
-
+		loadTour();
 </script>
