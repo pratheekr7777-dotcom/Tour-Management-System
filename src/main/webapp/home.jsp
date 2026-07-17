@@ -13,26 +13,23 @@ ArrayList<Tour> allTours =
 <head>
 
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Explore Tour</title>
 
-
 <style>
-@import
-	url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap')
-	;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
-    overflow-x:hidden;
-    overflow-y:auto;
-    background:linear-gradient(
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: linear-gradient(
         to bottom,
         #0f2027 0%,
         #203a43 15%,
@@ -42,458 +39,435 @@ body{
     );
 }
 
+img {
+    max-width: 100%;
+}
+
+/* =========================
+   HERO
+========================= */
 .hero {
-	height: 100vh;
-	width: 100%;
-	padding: 35px 50px;
-	color: white;
-	display: flex;
-	flex-direction: column;
-	background: linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
-		url("images/tour1.jpg");
-	background-size: cover;
-	background-position: center;
-	transition: 1s;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100svh;
+    height: auto;
+    padding: 35px 50px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    transition: background-image 1s ease;
 }
 
-.hero::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-2px;
-    width:100%;
-    height:240px;
-
-    background:linear-gradient(
-        to bottom,
-        rgba(0,0,0,0),
-        rgba(18,117,185,.15),
-        rgba(238,247,255,.95)
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(
+        transparent,
+        rgba(220, 245, 255, .15),
+        rgba(17, 126, 2, .24)
     );
-
-    pointer-events:none;
+    pointer-events: none;
 }
 
-/* NAVBAR */
+/* =========================
+   NAVBAR
+========================= */
 .navbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    animation: navbarEnter .8s ease both;
 }
 
 .logo {
-	font-size: 38px;
-	font-style: italic;
-	font-weight: 600;
+    flex-shrink: 0;
+    color: white;
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: -1px;
+    text-shadow: 0 3px 15px rgba(0, 0, 0, .30);
+    cursor: default;
+    transition: color .3s ease, transform .3s ease, text-shadow .3s ease;
+}
+
+.logo:hover {
+    color: #FFD54F;
+    transform: translateY(-2px);
+    text-shadow: 0 5px 20px rgba(0, 0, 0, .40);
 }
 
 .menu {
-	background: rgba(255, 255, 255, .35);
-	backdrop-filter: blur(18px);
-	padding: 14px 30px;
-	border-radius: 40px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 12px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, .20);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, .15);
 }
 
-.menu a {
-	color: white;
-	text-decoration: none;
-	margin: 0 18px;
-	font-size: 17px;
-	font-weight: 500;
-	transition: .3s;
+.nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 21px;
+    border-radius: 30px;
+    color: rgba(255, 255, 255, .90);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color .3s ease, background .3s ease, transform .3s ease;
 }
 
-.menu a:hover {
-	color: #FFD54F;
+.nav-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, .12);
+    transform: translateY(-1px);
+}
+
+.nav-link.active {
+    color: #173426;
+    background: rgba(255, 255, 255, .95);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, .12);
+}
+
+/* =========================
+   USER MENU
+========================= */
+.user-menu {
+    position: relative;
+}
+
+.user-button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 6px 13px 6px 7px;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, .10);
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background .3s ease, transform .3s ease;
+}
+
+.user-button:hover {
+    background: rgba(255, 255, 255, .20);
+    transform: translateY(-1px);
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    color: #173426;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.user-name {
+    max-width: 110px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.dropdown-arrow {
+    font-size: 16px;
+    transition: transform .3s ease;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    right: 0;
+    width: 190px;
+    padding: 9px;
+    border-radius: 17px;
+    background: rgba(255, 255, 255, .97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px) scale(.96);
+    transform-origin: top right;
+    transition: opacity .25s ease, visibility .25s ease, transform .25s ease;
+}
+
+.user-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+.user-dropdown a {
+    display: block;
+    padding: 11px 13px;
+    border-radius: 10px;
+    color: #26352d;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background .2s ease, padding-left .2s ease;
+}
+
+.user-dropdown a:hover {
+    background: #edf4ef;
+    padding-left: 17px;
+}
+
+.dropdown-divider {
+    height: 1px;
+    margin: 6px;
+    background: #e2e8e4;
+}
+
+.user-dropdown .logout-link {
+    color: #c43d3d;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
 .book {
-	background: white;
-	color: black;
-	padding: 12px 25px;
-	border-radius: 30px;
-	cursor: pointer;
-	text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 29px;
+    border-radius: 30px;
+    background: white;
+    color: #17231c;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .16);
+    transition: transform .3s ease, background .3s ease, box-shadow .3s ease;
 }
 
-/* CENTER CONTENT */
+.book:hover {
+    background: #FFD54F;
+    transform: translateY(-4px);
+    box-shadow: 0 13px 30px rgba(0, 0, 0, .25);
+}
+
+/* =========================
+   MOBILE MENU BUTTON
+========================= */
+.mobile-menu-btn {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .14);
+    backdrop-filter: blur(15px);
+    cursor: pointer;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    margin: 4px auto;
+    border-radius: 5px;
+    background: white;
+    transition: .3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* =========================
+   HERO CONTENT
+========================= */
 .content {
-	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: contentEnter 1s ease .2s both;
 }
 
 .small {
-	background: rgba(255, 255, 255, .25);
-	padding: 8px 20px;
-	border-radius: 20px;
-	backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .25);
+    backdrop-filter: blur(10px);
+    transition: transform .3s ease, background .3s ease;
+}
+
+.small:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, .35);
 }
 
 h1 {
-	font-size: 100px;
-	font-weight: 500;
-	text-align: center;
-	line-height: 1.1;
+    font-size: 80px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.1;
 }
 
 h1 span {
-	font-style: italic;
-	font-weight: 600;
+    font-style: italic;
+    font-weight: 600;
 }
 
-/* BOTTOM */
+/* =========================
+   TOUR DETAILS
+========================= */
 .bottom {
-	display: flex;
-	justify-content: space-between;
-	align-items: end;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    animation: bottomEnter 1s ease .4s both;
 }
 
 .left {
-	width: 35%;
+    width: 35%;
 }
 
 .left h2 {
-	font-size: 40px;
+    font-size: 30px;
 }
 
 .left h3 {
-	font-size: 28px;
-	margin-top: 5px;
+    margin-top: 5px;
+    font-size: 22px;
 }
 
 .left p {
-	margin: 20px 0;
-	font-size: 20px;
-	line-height: 1.6;
-}
-
-.btn {
-	background: white;
-	color: black;
-	padding: 12px 30px;
-	border-radius: 30px;
-	text-decoration: none;
-	display: inline-block;
-	transition: .3s;
-}
-
-.btn:hover {
-	transform: translateY(-5px);
-}
-
-/* CAROUSEL */
-.carousel {
-	width: 60%;
-	display: flex;
-	align-items: center;
-	gap: 15px;
-}
-
-.cards {
-	display: flex;
-	gap: 15px;
-	overflow: hidden;
-	width: 100%;
-}
-
-.card {
-	min-width: 120px;
-	height: 180px;
-	border-radius: 20px;
-	overflow: hidden;
-	cursor: pointer;
-	transition: .5s;
-}
-
-.card img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.card:hover {
-	transform: translateY(-12px) scale(1.05);
-}
-
-.arrow {
-	width: 45px;
-	height: 45px;
-	border-radius: 50%;
-	border: none;
-	font-size: 25px;
-	cursor: pointer;
+    margin: 20px 0;
+    font-size: 18px;
+    line-height: 1.6;
 }
 
 .price {
-	font-size: 28px;
-	margin-top: 10px;
+    margin-top: 10px;
+    font-size: 24px;
 }
 
 .rating {
-	font-size: 20px;
+    font-size: 18px;
 }
 
-.destinations {
-	padding: 80px 70px;
-	background: white;
-}
-
-.heading {
-	text-align: center;
-	margin-bottom: 50px;
-}
-
-.heading h2 {
-	font-size: 42px;
-	color: #222;
-}
-
-.heading p {
-	color: #777;
-	margin-top: 10px;
-}
-
-.destination-container {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-	gap: 30px;
-}
-
-.destination-card {
-	background: white;
-	border-radius: 20px;
-	overflow: hidden;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
-	transition: .4s;
-}
-
-.destination-card:hover {
-	transform: translateY(-10px);
-}
-
-.destination-card img {
-	width: 100%;
-	height: 220px;
-	object-fit: cover;
-}
-
-.info {
-	padding: 20px;
-}
-
-.info h3 {
-	font-size: 22px;
-	color: #222;
-}
-/* ==========================================
-           PREMIUM POPULAR TOUR SECTION
-========================================== */
-
-.hero{
-    position:relative;
-    z-index:1;
-}
-
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    bottom:0;
-
-    width:100%;
-    height:180px;
-
-    background:linear-gradient(
-
-        transparent,
-
-        rgba(220,245,255,.15),
-
-        rgba(17, 126, 2, 0.24)
-
-    );
-
-    pointer-events:none;
-
-}
-/* ==========================================
-   SMOOTH HERO ANIMATIONS
-========================================== */
-
-/* Initial page entrance */
-.navbar {
-    animation: navbarEnter 0.8s ease forwards;
-}
-
-@keyframes navbarEnter {
-    from {
-        opacity: 0;
-        transform: translateY(-25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Center content animation */
-.content {
-    animation: contentEnter 1s ease 0.2s both;
-}
-
-@keyframes contentEnter {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Bottom section entrance */
-.bottom {
-    animation: bottomEnter 1s ease 0.4s both;
-}
-
-@keyframes bottomEnter {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ==========================================
-   TOUR CHANGE ANIMATION
-========================================== */
-
-.content.animate-tour {
-    animation: tourTitleChange 0.7s ease;
-}
-
-@keyframes tourTitleChange {
-
-    0% {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-.left.animate-tour {
-    animation: tourInfoChange 0.7s ease;
-}
-
-@keyframes tourInfoChange {
-
-    0% {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-
-/* ==========================================
-   CAROUSEL ANIMATION
-========================================== */
-
-.card {
-    animation: cardEnter 0.6s ease both;
-}
-
-.card:nth-child(1) {
-    animation-delay: 0.05s;
-}
-
-.card:nth-child(2) {
-    animation-delay: 0.1s;
-}
-
-.card:nth-child(3) {
-    animation-delay: 0.15s;
-}
-
-.card:nth-child(4) {
-    animation-delay: 0.2s;
-}
-
-@keyframes cardEnter {
-
-    from {
-        opacity: 0;
-        transform: translateX(35px) scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-    }
-}
-
-
-/* Better card hover */
-.card:hover {
-    transform: translateY(-10px) scale(1.04);
-    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
-}
-
-
-/* ==========================================
-   BUTTON ANIMATIONS
-========================================== */
-
-.book,
 .btn {
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease;
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 30px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
 }
 
-.book:hover,
 .btn:hover {
     transform: translateY(-4px);
-
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
 }
 
+/* =========================
+   CAROUSEL
+========================= */
+.carousel {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-/* ==========================================
-   ARROW ANIMATIONS
-========================================== */
+.cards {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.card {
+    min-width: 120px;
+    height: 180px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .5s ease, box-shadow .5s ease;
+    animation: cardEnter .6s ease both;
+}
+
+.card:nth-child(1) { animation-delay: .05s; }
+.card:nth-child(2) { animation-delay: .10s; }
+.card:nth-child(3) { animation-delay: .15s; }
+.card:nth-child(4) { animation-delay: .20s; }
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, .35);
+}
 
 .arrow {
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    font-size: 25px;
+    cursor: pointer;
+    transition: transform .25s ease, background .25s ease;
 }
 
 .arrow:hover {
@@ -501,30 +475,364 @@ h1 span {
 }
 
 .arrow:active {
-    transform: scale(0.9);
+    transform: scale(.9);
 }
 
-
-/* ==========================================
-   CATEGORY
-========================================== */
-
-.small {
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease;
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes navbarEnter {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.small:hover {
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.35);
+@keyframes contentEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bottomEnter {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content.animate-tour {
+    animation: tourTitleChange .7s ease;
+}
+
+@keyframes tourTitleChange {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.left.animate-tour {
+    animation: tourInfoChange .7s ease;
+}
+
+@keyframes tourInfoChange {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateX(35px) scale(.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+/* =========================
+   TABLET / SMALL LAPTOP
+========================= */
+@media (max-width: 1100px) {
+    .hero {
+        min-height: 100svh;
+        padding: 28px 30px 45px;
+        background-position: center 35%;
+    }
+
+    .logo {
+        font-size: 35px;
+    }
+
+    .menu {
+        position: absolute;
+        top: calc(100% + 16px);
+        left: 0;
+        right: 0;
+        width: 100%;
+        transform: translateY(-12px);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+        padding: 17px;
+        border-radius: 24px;
+        background: rgba(15, 32, 39, .96);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .3s ease, transform .3s ease, visibility .3s ease;
+    }
+
+    .menu.mobile-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 13px 17px;
+        justify-content: flex-start;
+        font-size: 16px;
+    }
+
+    .user-button {
+        width: 100%;
+        padding: 9px;
+        justify-content: flex-start;
+    }
+
+    .user-name {
+        display: inline-block;
+        max-width: none;
+        font-size: 15px;
+    }
+
+    .user-dropdown {
+        position: static;
+        width: 100%;
+        margin-top: 8px;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+    }
+
+    .user-dropdown.show {
+        display: block;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        width: 48px;
+        height: 48px;
+    }
+
+    .book {
+        padding: 13px 25px;
+        font-size: 15px;
+    }
+
+    .content {
+        min-height: 370px;
+        padding-top: 60px;
+    }
+
+    h1 {
+        font-size: clamp(46px, 7vw, 65px);
+    }
+
+    .bottom {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 32px;
+    }
+
+    .left {
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .carousel {
+        width: 100%;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 600px) {
+    @supports not (height: 100dvh) {
+        .hero {
+            height: 100vh;
+            min-height: 100vh;
+        }
+    }
+
+    .hero {
+        width: 100%;
+        height: 100dvh;
+        min-height: 100dvh;
+        padding: 18px 15px 25px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+
+    .navbar {
+        min-height: 52px;
+    }
+
+    .logo {
+        max-width: calc(100% - 65px);
+        font-size: 30px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .book {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        width: 46px;
+        height: 46px;
+        flex-shrink: 0;
+    }
+
+    .mobile-menu-btn span {
+        width: 20px;
+    }
+
+    .menu {
+        top: calc(100% + 14px);
+        padding: 16px;
+    }
+
+    .nav-link {
+        padding: 14px 16px;
+        font-size: 16px;
+    }
+
+    .content {
+        flex: 1;
+        min-height: 0;
+        padding: 35px 0 20px;
+    }
+
+    .small {
+        padding: 7px 16px;
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: clamp(36px, 11vw, 50px);
+        line-height: 1.08;
+        overflow-wrap: anywhere;
+    }
+
+    .bottom {
+        flex-shrink: 0;
+        gap: 15px;
+    }
+
+    .left h2 {
+        font-size: 25px;
+    }
+
+    .left h3 {
+        font-size: 17px;
+    }
+
+    .left p {
+        margin: 7px 0;
+        display: -webkit-box;
+        overflow: hidden;
+        font-size: 11px;
+        line-height: 1.4;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .price {
+        font-size: 22px;
+    }
+
+    .rating {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 11px 24px;
+        font-size: 14px;
+    }
+
+    .carousel {
+        width: 100%;
+        gap: 7px;
+    }
+
+    .cards {
+        gap: 9px;
+    }
+
+    .card {
+        flex: 0 0 calc(33.333% - 7px);
+        min-width: calc(33.333% - 7px);
+        height: 100px;
+        border-radius: 14px;
+    }
+
+    .arrow {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        font-size: 21px;
+    }
+}
+
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+@media (max-width: 400px) {
+    .hero {
+        padding: 18px 14px 30px;
+    }
+
+    .logo {
+        font-size: 27px;
+    }
+
+    .content {
+        padding-top: 35px;
+    }
+
+    h1 {
+        font-size: 35px;
+    }
+
+    .card {
+        flex: 0 0 calc(50% - 5px);
+        min-width: calc(50% - 5px);
+    }
+
+    .arrow {
+        width: 32px;
+        height: 32px;
+    }
 }
 </style>
 
-
 </head>
-
-
 
 <body>
 <%
@@ -542,113 +850,147 @@ if(message != null){
 %>
 	<div class="hero" id="hero">
 
+<!-- =========================
+     NAVBAR
+========================= -->
 
+<nav class="navbar">
 
-		<!-- NAVBAR -->
+    <!-- Dynamic Location -->
+    <div class="logo" id="logo">
+        Explore
+    </div>
 
+    <!-- Navigation Menu -->
+    <div class="menu" id="navMenu">
 
-		<div class="navbar">
+        <a href="home" class="nav-link active">
+            Home
+        </a>
 
+        <a href="tours" class="nav-link">
+            Tours
+        </a>
 
-			<div class="logo" id="logo">Explore</div>
+        <a href="my-bookings" class="nav-link">
+            My Bookings
+        </a>
 
+        <%
+        User user = (User) session.getAttribute("user");
 
+        if (user == null) {
+        %>
 
+            <a href="login.jsp" class="nav-link">
+                Login
+            </a>
 
-			<div class="menu">
+            <a href="registration.jsp" class="nav-link">
+                Register
+            </a>
 
-    <a href="home">Home</a>
+        <%
+        } else {
+        %>
 
-    <a href="tours">Tours</a>
+            <div class="user-menu">
 
-    <a href="my-bookings">Bookings</a>
+                <button
+                    type="button"
+                    class="user-button"
+                    onclick="toggleUserMenu(event)">
 
-    <%
-    User user = (User) session.getAttribute("user");
+                    <span class="user-avatar">
+                        <%= (user.getName() != null && !user.getName().isBlank()) ? user.getName().substring(0, 1).toUpperCase() : "U" %>
+                    </span>
 
-    if(user == null){
-    %>
+                    <span class="user-name">
+                        <%= user.getName() %>
+                    </span>
 
-        <a href="login.jsp">Login</a>
+                    <span class="dropdown-arrow">
+                        ▾
+                    </span>
 
-        <a href="registration.jsp">Register</a>
+                </button>
 
-    <%
-    }else{
-    %>
+                <div
+                    class="user-dropdown"
+                    id="userDropdown">
 
-        <a href="logout">Logout</a>
+                    <a href="profile">Update Profile</a>
 
-    <%
-    }
-    %>
+                    <div class="dropdown-divider"></div>
 
-</div>
+                    <a
+                        href="logout"
+                        class="logout-link">
 
+                        Logout
 
+                    </a>
 
-			<div> <a id="navBookBtn" class="book" href="tours">
-    Tours ↗
-</a></div>
+                </div>
 
+            </div>
 
-		</div>
+        <%
+        }
+        %>
 
+    </div>
 
+    <!-- Right Side -->
+    <div class="navbar-actions">
 
+        <a
+            id="navBookBtn"
+            class="book"
+            href="tours">
 
+            Tours ↗
 
+        </a>
 
+        <button
+            id="mobileMenuBtn"
+            class="mobile-menu-btn"
+            type="button"
+            aria-label="Open navigation"
+            onclick="toggleMobileMenu()">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </div>
+
+</nav>
 
 		<!-- CENTER -->
 
-
 		<div class="content">
-
 
 			<div class="small" id="category">Adventure</div>
 
-
-
 			<h1 id="title">Tour Title</h1>
-
-
 
 		</div>
 
-
-
-
-
-
-
-
 		<!-- BOTTOM -->
-
 
 		<div class="bottom">
 
-
-
-
-
 			<div class="left">
-
-
 
 				<h2 id="tourName">Tour Name</h2>
 
-
-
-
 				<h3 id="location">Location</h3>
 
-
-
 				<p id="description">Description</p>
-
-
-
 
 				<div class="price">
 
@@ -656,64 +998,31 @@ if(message != null){
 
 				</div>
 
-
-
-
 				<div class="rating">
 
 					⭐ <span id="rating"> 0 </span>
 
 				</div>
 
-
-
-
 				<br> <a id="heroBookBtn" class="btn" href="#">Book Now ↗</a>
 
-
-
 			</div>
-
-
-
-
-
-
 
 			<div class="carousel">
 
-
-
 				<button class="arrow" onclick="prev()">‹</button>
-
-
-
 
 				<div class="cards" id="cards"></div>
 
-
-
-
 				<button class="arrow" onclick="next()">›</button>
-
-
 
 			</div>
 
-
-
-
-
 		</div>
-
-
-
-
 
 	</div>
 
 		<script>
-
 
 		let tours = [
 
@@ -742,11 +1051,9 @@ if(message != null){
 
 		];
 
-
 		console.log(tours);
 
 		let current = 0;
-
 
 		/* ================================
 		   LOAD CURRENT TOUR
@@ -764,33 +1071,26 @@ if(message != null){
 		    let content = document.querySelector(".content");
 		    let left = document.querySelector(".left");
 
-
-		    /* Restart content animations */
+		    /* Restart animations */
 
 		    content.classList.remove("animate-tour");
 		    left.classList.remove("animate-tour");
 
 		    void content.offsetWidth;
 
-
 		    /* Change hero background */
 
 		    hero.style.backgroundImage = `
-
 		        linear-gradient(
 		            rgba(0,0,0,.45),
 		            rgba(0,0,0,.45)
 		        ),
-
 		        url("${tour.image}")
-
 		    `;
 
-
 		    /* Update tour details */
-
 		    document.getElementById("logo").textContent =
-		        tour.location.split(",")[0];
+    tour.location.split(",")[0];
 
 		    document.getElementById("category").textContent =
 		        tour.category;
@@ -813,46 +1113,55 @@ if(message != null){
 		    document.getElementById("rating").textContent =
 		        tour.rating;
 
-
 		    /* Booking button */
 
 		    document.getElementById("heroBookBtn").href =
 		        "book-tour?id=" + tour.id;
 
-
-		    /* Start animations */
+		    /* Restart animations */
 
 		    content.classList.add("animate-tour");
-
 		    left.classList.add("animate-tour");
 
-
-		    /* Display carousel images */
+		    /* Display carousel */
 
 		    showCards();
 		}
 
-
-
 		/* ================================
 		   DISPLAY CAROUSEL CARDS
 		================================ */
-
+		window.addEventListener("resize", function() {
+		    showCards();
+		});
 		function showCards() {
+
+		    if (tours.length === 0) {
+		        return;
+		    }
 
 		    let cards = document.getElementById("cards");
 
 		    cards.innerHTML = "";
 
+		    let visibleCards;
 
-		    for (let i = 0; i < 4; i++) {
+		    if (window.innerWidth <= 400) {
+		        visibleCards = 2;
+		    }
+		    else if (window.innerWidth <= 600) {
+		        visibleCards = 3;
+		    }
+		    else {
+		        visibleCards = 4;
+		    }
 
+		    for (let i = 0; i < visibleCards; i++) {
 		        let index = (current + i) % tours.length;
 
 		        let card = document.createElement("div");
 
 		        card.className = "card";
-
 
 		        /* When image is clicked */
 
@@ -862,7 +1171,6 @@ if(message != null){
 
 		        });
 
-
 		        /* Create image */
 
 		        let image = document.createElement("img");
@@ -871,11 +1179,9 @@ if(message != null){
 
 		        image.alt = tours[index].title;
 
-
 		        /* Add image inside card */
 
 		        card.appendChild(image);
-
 
 		        /* Add card inside carousel */
 
@@ -884,8 +1190,6 @@ if(message != null){
 		    }
 
 		}
-
-
 
 		/* ================================
 		   NEXT TOUR
@@ -902,8 +1206,6 @@ if(message != null){
 		    loadTour();
 
 		}
-
-
 
 		/* ================================
 		   PREVIOUS TOUR
@@ -922,8 +1224,6 @@ if(message != null){
 
 		}
 
-
-
 		/* ================================
 		   SELECT CAROUSEL IMAGE
 		================================ */
@@ -936,8 +1236,6 @@ if(message != null){
 
 		}
 
-
-
 		/* ================================
 		   AUTO SLIDER
 		================================ */
@@ -948,11 +1246,95 @@ if(message != null){
 
 		}, 6000);
 
-
-
 		/* ================================
 		   INITIAL LOAD
 		================================ */
 
 		loadTour();
+		/* ==========================================
+		   USER DROPDOWN
+		========================================== */
+
+		function toggleUserMenu(event) {
+
+		    event.stopPropagation();
+
+		    const dropdown =
+		        document.getElementById("userDropdown");
+
+		    if (dropdown) {
+		        dropdown.classList.toggle("show");
+		    }
+
+		}
+
+		/* ==========================================
+		   MOBILE NAVIGATION
+		========================================== */
+
+		function toggleMobileMenu() {
+
+		    const menu =
+		        document.getElementById("navMenu");
+
+		    const button =
+		        document.getElementById("mobileMenuBtn");
+
+		    menu.classList.toggle("mobile-open");
+
+		    button.classList.toggle("active");
+
+		}
+
+		/* ==========================================
+		   CLOSE MENUS WHEN CLICKING OUTSIDE
+		========================================== */
+
+		document.addEventListener("click", function(event) {
+
+		    const userMenu =
+		        document.querySelector(".user-menu");
+
+		    const dropdown =
+		        document.getElementById("userDropdown");
+
+		    /* Close user dropdown */
+
+		    if (
+		        userMenu &&
+		        dropdown &&
+		        !userMenu.contains(event.target)
+		    ) {
+
+		        dropdown.classList.remove("show");
+
+		    }
+
+		    /* Close mobile menu */
+
+		    if (window.innerWidth <= 1100) {
+
+		        const navbar =
+		            document.querySelector(".navbar");
+
+		        const menu =
+		            document.getElementById("navMenu");
+
+		        const button =
+		            document.getElementById("mobileMenuBtn");
+
+		        if (
+		            navbar &&
+		            !navbar.contains(event.target)
+		        ) {
+
+		            menu.classList.remove("mobile-open");
+
+		            button.classList.remove("active");
+
+		        }
+
+		    }
+
+		});
 </script>

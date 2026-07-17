@@ -609,36 +609,103 @@ pointer-events:none;
 
 	<header class="hero">
 
-		<nav class="navbar">
+<!-- NAVBAR -->
+<nav class="navbar">
 
-			<div class="logo">Explore</div>
+    <!-- LOGO -->
+    <a href="home" class="logo">
+        TourM
+    </a>
 
-			<div class="menu">
 
-				<a href="home">Home</a> <a href="tours" class="active">Tours</a> <a
-					href="my-bookings">Bookings</a>
+    <!-- MENU -->
+    <div class="menu">
 
-				<%
-if(user==null){
-%>
+        <a href="home" class="active">
+            Home
+        </a>
 
-				<a href="login.jsp">Login</a> <a href="register.jsp">Register</a>
+        <a href="tours">
+            Tours
+        </a>
 
-				<%
-}else{
-%>
+        <a href="my-bookings">
+            Bookings
+        </a>
 
-				<a href="logout">Logout</a>
+        <%
+        
 
-				<%
-}
-%>
+        if (user == null) {
+        %>
 
-			</div>
+            <a href="login.jsp">
+                Login
+            </a>
 
-			<a href="home" class="bookBtnTop"> Back Home ↗ </a>
+            <a href="registration.jsp">
+                Register
+            </a>
 
-		</nav>
+        <%
+        } else {
+        %>
+
+            <div class="user-menu">
+
+                <button
+                    type="button"
+                    class="user-button"
+                    onclick="toggleUserMenu(event)">
+
+                    <span class="user-avatar">
+                        <%=user.getName().substring(0,1).toUpperCase()%>
+                    </span>
+
+                    <span class="user-name">
+                        <%=user.getName()%>
+                    </span>
+
+                    <span class="user-arrow">⌄</span>
+
+                </button>
+
+
+                <div
+                    class="user-dropdown"
+                    id="userDropdown">
+
+                    <a href="profile">
+                        My Profile
+                    </a>
+
+                    <a href="my-bookings">
+                        My Bookings
+                    </a>
+
+                    <div class="dropdown-line"></div>
+
+                    <a href="logout" class="logout-link">
+                        Logout
+                    </a>
+
+                </div>
+
+            </div>
+
+        <%
+        }
+        %>
+
+    </div>
+
+
+    <!-- RIGHT BUTTON -->
+    <a href="tours" class="bookBtnTop">
+        Explore Tours ↗
+    </a>
+
+</nav>
 
 		<div class="heroContent">
 
