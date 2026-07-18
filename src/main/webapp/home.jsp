@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Collections"%>
 <%@ page import="com.tour.tour_management_system.entity.User"%>
 <%@ page import="com.tour.tour_management_system.entity.Tour"%>
 <%
@@ -353,7 +354,7 @@ img {
 }
 
 h1 {
-    font-size: 80px;
+    font-size: 68px;
     font-weight: 500;
     text-align: center;
     line-height: 1.1;
@@ -379,27 +380,27 @@ h1 span {
 }
 
 .left h2 {
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .left h3 {
     margin-top: 5px;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 .left p {
     margin: 20px 0;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1.6;
 }
 
 .price {
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .rating {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .btn {
@@ -830,6 +831,52 @@ h1 span {
         height: 32px;
     }
 }
+
+/* TOP RATED TOURS */
+.top-rated-section {
+    position: relative;
+    padding: 90px 50px 110px;
+
+    background:
+        linear-gradient(
+            rgba(8, 35, 29, 0.72),
+            rgba(8, 35, 29, 0.62)
+        ),
+        url("images/tour40.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.top-rated-container { width: min(1200px,100%); margin: auto; }
+.top-rated-header { text-align:center; margin-bottom:42px; }
+.top-rated-label { color:#FFD54F; font-size:14px; font-weight:600; letter-spacing:2px; text-transform:uppercase; }
+.top-rated-header h2 { color:white; font-size:clamp(34px,5vw,54px); margin-top:10px; }
+.top-rated-header p { max-width:620px; margin:14px auto 0; color:rgba(255,255,255,.78); line-height:1.7; }
+.top-rated-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+.top-tour-card { overflow:hidden; border-radius:26px; background:rgba(255,255,255,.95); box-shadow:0 22px 55px rgba(15,50,45,.18); transition:.35s; }
+.top-tour-card:hover { transform:translateY(-9px); box-shadow:0 30px 65px rgba(15,50,45,.28); }
+.top-tour-image { position:relative; height:235px; overflow:hidden; }
+.top-tour-image img { width:100%; height:100%; object-fit:cover; transition:.6s; }
+.top-tour-card:hover .top-tour-image img { transform:scale(1.07); }
+.top-tour-category,.top-tour-rating { position:absolute; top:18px; padding:8px 14px; border-radius:30px; font-size:13px; font-weight:600; }
+.top-tour-category { left:18px; background:white; color:#173426; }
+.top-tour-rating { right:18px; background:#FFD54F; color:#222; }
+.top-tour-body { padding:24px; }
+.top-tour-body h3 { color:#18382f; font-size:22px; margin-bottom:7px; }
+.top-tour-location { color:#6b7c76; font-size:14px; margin-bottom:20px; }
+.top-tour-footer { display:flex; align-items:center; justify-content:space-between; gap:15px; }
+.top-tour-price { color:#173426; font-size:21px; font-weight:600; }
+.top-tour-price small { display:block; color:#81918c; font-size:11px; font-weight:400; }
+.top-tour-button { padding:11px 20px; border-radius:30px; background:#173426; color:white; text-decoration:none; font-size:13px; font-weight:600; transition:.3s; }
+.top-tour-button:hover { background:#2E7D32; transform:translateY(-2px); }
+.top-rated-empty { grid-column:1/-1; padding:50px; text-align:center; color:white; }
+@media(max-width:900px){.top-rated-section{padding:75px 30px 90px}.top-rated-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.top-rated-section{padding:65px 15px 75px}.top-rated-grid{grid-template-columns:1fr}.top-tour-image{height:220px}}
+
 </style>
 
 </head>
@@ -1021,6 +1068,51 @@ if(message != null){
 		</div>
 
 	</div>
+
+
+<!-- TOP RATED TOURS -->
+<section class="top-rated-section">
+  <div class="top-rated-container">
+    <div class="top-rated-header">
+      <span class="top-rated-label">Traveler Favorites</span>
+      <h2>Top Rated Tours</h2>
+      <p>Discover the journeys our travelers love the most and find your next unforgettable escape.</p>
+    </div>
+    <div class="top-rated-grid">
+<%
+if (allTours != null && !allTours.isEmpty()) {
+    ArrayList<Tour> topRatedTours = new ArrayList<Tour>(allTours);
+    Collections.sort(topRatedTours, (a, b) -> Double.compare(b.getRating(), a.getRating()));
+    int topTourLimit = Math.min(3, topRatedTours.size());
+    for (int i = 0; i < topTourLimit; i++) {
+        Tour topTour = topRatedTours.get(i);
+%>
+      <article class="top-tour-card">
+        <div class="top-tour-image">
+          <img src="<%=topTour.getImage()%>" alt="<%=topTour.getTitle()%>">
+          <span class="top-tour-category"><%=topTour.getCategory()%></span>
+          <span class="top-tour-rating">⭐ <%=topTour.getRating()%></span>
+        </div>
+        <div class="top-tour-body">
+          <h3><%=topTour.getTitle()%></h3>
+          <p class="top-tour-location">📍 <%=topTour.getLocation()%></p>
+          <div class="top-tour-footer">
+            <div class="top-tour-price"><small>Starting from</small>₹ <%=topTour.getDiscountPrice()%></div>
+            <a class="top-tour-button" href="book-tour?id=<%=topTour.getId()%>">Book Now ↗</a>
+          </div>
+        </div>
+      </article>
+<%
+    }
+} else {
+%>
+      <div class="top-rated-empty">No tours are available right now.</div>
+<%
+}
+%>
+    </div>
+  </div>
+</section>
 
 		<script>
 
