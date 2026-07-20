@@ -555,7 +555,194 @@ h1 span {
         transform: translateX(0) scale(1);
     }
 }
+/* =========================
+   FOOTER
+========================= */
 
+.footer {
+    position: relative;
+    padding: 75px 50px 25px;
+	margin-top:40px;
+    background:
+        linear-gradient(
+            135deg,
+            #081c18,
+            #0f2d26,
+            #173f34
+        );
+
+    color: white;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    width: 90%;
+    height: 1px;
+
+    transform: translateX(-50%);
+
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255,255,255,.25),
+        transparent
+    );
+}
+
+.footer-container {
+    width: min(1200px, 100%);
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+
+    gap: 55px;
+}
+
+.footer-brand h2 {
+    font-size: 32px;
+    font-style: italic;
+    margin-bottom: 18px;
+}
+
+.footer-brand h2 span {
+    color: #FFD54F;
+}
+
+.footer-brand p {
+    max-width: 350px;
+
+    color: rgba(255,255,255,.68);
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.footer h3 {
+    margin-bottom: 20px;
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-links a {
+    position: relative;
+
+    margin-bottom: 12px;
+
+    color: rgba(255,255,255,.68);
+
+    font-size: 14px;
+
+    text-decoration: none;
+
+    transition: .3s ease;
+}
+
+.footer-links a:hover {
+    color: #FFD54F;
+
+    transform: translateX(5px);
+}
+
+.footer-contact p {
+    margin-bottom: 13px;
+
+    color: rgba(255,255,255,.68);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    width: min(1200px, 100%);
+
+    margin: 55px auto 0;
+
+    padding-top: 22px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    border-top: 1px solid rgba(255,255,255,.12);
+
+    color: rgba(255,255,255,.55);
+
+    font-size: 13px;
+}
+
+.footer-made {
+    color: rgba(255,255,255,.65);
+}
+
+
+/* =========================
+   FOOTER TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    .footer {
+        padding: 65px 30px 25px;
+    }
+
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 45px;
+    }
+
+}
+
+
+/* =========================
+   FOOTER MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .footer {
+        padding: 55px 20px 25px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 38px;
+    }
+
+    .footer-brand h2 {
+        font-size: 28px;
+    }
+
+    .footer-brand p {
+        max-width: 100%;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+
+        flex-direction: column;
+
+        text-align: center;
+
+        gap: 8px;
+    }
+
+}
 /* =========================
    TABLET / SMALL LAPTOP
 ========================= */
@@ -1112,6 +1299,58 @@ if (allTours != null && !allTours.isEmpty()) {
 %>
     </div>
   </div>
+  <footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+            <h2>Explore <span>Tours</span></h2>
+
+            <p>
+                Discover breathtaking destinations, unforgettable adventures,
+                and experiences worth remembering.
+            </p>
+        </div>
+
+        <div class="footer-links">
+            <h3>Explore</h3>
+
+            <a href="home">Home</a>
+            <a href="tours">Tours</a>
+            <a href="my-bookings">My Bookings</a>
+        </div>
+
+        <div class="footer-links">
+            <h3>Account</h3>
+
+            <a href="login.jsp">Login</a>
+            <a href="registration.jsp">Create Account</a>
+            <a href="profile">My Profile</a>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Contact</h3>
+
+            <p>📧 support@exploretours.com</p>
+            <p>📞 +91 98765 43210</p>
+            <p>📍 Karnataka, India</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Explore Tours. All rights reserved.
+        </p>
+
+        <p class="footer-made">
+            Explore more. Travel further.
+        </p>
+
+    </div>
+
+</footer>
 </section>
 
 		<script>
